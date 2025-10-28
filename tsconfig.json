@@ -22,9 +22,9 @@
     "declaration": true,
     "removeComments": true,
     // !!!Kommentar fuer Nest entfernen
-    //"emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true,
     // !!!auskommentieren fuer Nest
-    "noEmit": true,
+    // "noEmit": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
@@ -48,7 +48,7 @@
     // "strict": true, // strictest: alle "strict"-Optionen aktivieren
 
     // !!!auskommentieren fuer Nest
-    "allowImportingTsExtensions": true,
+    // "allowImportingTsExtensions": true,
     "erasableSyntaxOnly": true // NICHT: enum, parameter properties in constructor(), namespace, import aliases
 
     // "useUnknownInCatchVariables": true // unknown als default-Typ bei catch-Klauseln, default bei strict

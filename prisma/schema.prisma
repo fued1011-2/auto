@@ -1,0 +1,101 @@
+/// https://www.prisma.io/docs/orm/reference/prisma-schema-reference
+/// https://www.prisma.io/docs/orm/reference/prisma-schema-reference#generator
+generator client {
+  /// Default ab Prisma 7
+  /// https://www.prisma.io/docs/orm/prisma-schema/overview/generators#output-splitting-and-importing-types
+  /// https://www.prisma.io/blog/why-prisma-orm-generates-code-into-node-modules-and-why-it-ll-change
+  /// https://www.prisma.io/blog/rust-free-prisma-orm-is-ready-for-production
+  /// https://github.com/prisma/prisma/releases/tag/6.6.0
+  /// https://github.com/prisma/prisma/releases/tag/6.16.0
+  /// ESM-first
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  /// https://www.prisma.io/docs/orm/reference/preview-features/client-preview-features#currently-active-preview-features
+  /// https://github.com/prisma/prisma/releases/tag/5.7.0
+  previewFeatures     = ["nativeDistinct", "relationJoins"]
+  engineType          = "client"
+  /// https://github.com/prisma/prisma/releases/tag/6.12.0
+  // importFileExtension = "ts"
+}
+
+/// https://www.prisma.io/docs/orm/reference/prisma-schema-reference#datasource
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["auto"]
+}
+
+model Ausstattung {
+  id           Int     @id @default(autoincrement())
+  bezeichnung  String
+  beschreibung String?
+  preis        Decimal @db.Decimal(8, 2)
+  autoId       Int     @map("auto_id")
+  auto         Auto    @relation(fields: [autoId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([autoId])
+  @@map("abbildung")
+  @@schema("auto")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Auto {
+  id             Int             @id @default(autoincrement())
+  version        Int             @default(0)
+  fin            String          @unique
+  rating         Int
+  art            Autoart?
+  preis          Decimal         @db.Decimal(8, 2)
+  rabatt         Decimal         @db.Decimal(4, 3)
+  verfuegbar     Boolean         @default(false)
+  baujahr        DateTime?       @db.Date
+  homepage       String?
+  schlagwoerter  Json?
+  erzeugt        DateTime        @default(now()) @db.Timestamp(6)
+  aktualisiert   DateTime        @default(now()) @db.Timestamp(6) @updatedAt
+  ausstattungen  Ausstattung[]
+  autoFile       AutoFile?
+  fahrzeugschein Fahrzeugschein?
+
+  @@map("auto")
+  @@schema("auto")
+}
+
+model AutoFile {
+  id       Int     @id @default(autoincrement())
+  data     Bytes
+  filename String
+  mimetype String?
+  autoId   Int     @unique @map("auto_id")
+  auto     Auto    @relation(fields: [autoId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([autoId])
+  @@map("auto_file")
+  @@schema("auto")
+}
+
+model Fahrzeugschein {
+  id                     Int       @id @default(autoincrement())
+  identifikationsNummer String     @map("identifikations_nummer")
+  erstzulassung          DateTime? @db.Date
+  gueltig_bis            DateTime? @db.Date
+  auto_id                Int       @unique
+  auto                   Auto      @relation(fields: [auto_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([identifikationsNummer])
+  @@map("fahrzeugschein")
+  @@schema("auto")
+}
+
+enum Autoart {
+  SUV
+  CABRIO
+  LIMOUSINE
+  E_AUTO    @map("E-AUTO")
+  KOMBI
+  PICKUP
+  CROSSOVER
+
+  @@map("autoart")
+  @@schema("auto")
+}

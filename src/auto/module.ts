@@ -19,6 +19,8 @@ import { AutoController } from './controller/auto-controller.js';
 import { AutoService } from './service/auto-service.js';
 import { PrismaService } from './service/prisma-service.js';
 import { WhereBuilder } from './service/where-builder.js';
+import { AutoWriteService } from './service/auto-write-service.js';
+import { AutoWriteController } from './controller/auto-write-controller.js';
 
 /**
  * Das Modul besteht aus Controller- und Service-Klassen für die Verwaltung von
@@ -32,14 +34,15 @@ import { WhereBuilder } from './service/where-builder.js';
  */
 @Module({
     imports: [KeycloakModule],
-    controllers: [AutoController],
+    controllers: [AutoController, AutoWriteController],
     // Provider sind z.B. Service-Klassen fuer DI
     providers: [
         AutoService,
+        AutoWriteService,
         PrismaService,
         WhereBuilder,
     ],
     // Export der Provider fuer DI in anderen Modulen
-    exports: [AutoService],
+    exports: [AutoService, AutoWriteService],
 })
 export class AutoModule {}

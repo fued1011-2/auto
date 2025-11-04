@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   docker build --tag juergenzimmermann/buch:2025.10.1-trixie .
+# Aufruf:   docker build --tag edgarfuchs/auto:2025.10.1-trixie .
 #               ggf. --progress=plain
 #               ggf. --no-cache
 #           Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:v2.14.0-debian
 #               Linux:   cat Dockerfile | docker run --rm --interactive hadolint/hadolint:v2.14.0-debian
-#           docker save juergenzimmermann/buch:2025.10.1-trixie > buch.tar
+#           docker save edgarfuchs/auto:2025.10.1-trixie > auto.tar
 #           docker network ls
 
 # https://docs.docker.com/engine/reference/builder/#syntax
@@ -132,11 +132,11 @@ FROM node:${NODE_VERSION}-trixie-slim AS final
 # https://specs.opencontainers.org/image-spec/annotations
 # https://spdx.org/licenses
 # MAINTAINER ist deprecated https://docs.docker.com/engine/reference/builder/#maintainer-deprecated
-LABEL org.opencontainers.image.title="buch" \
-  org.opencontainers.image.description="Appserver buch mit Basis-Image Debian Trixie" \
+LABEL org.opencontainers.image.title="auto" \
+  org.opencontainers.image.description="Appserver auto mit Basis-Image Debian Trixie" \
   org.opencontainers.image.version="2025.10.1-trixie" \
   org.opencontainers.image.licenses="GPL-3.0-or-later" \
-  org.opencontainers.image.authors="Juergen.Zimmermann@h-ka.de"
+  org.opencontainers.image.authors="fued1011@h-ka.de"
 
 RUN <<EOF
 set -eux

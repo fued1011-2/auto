@@ -13,13 +13,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { NotFoundException, UseInterceptors } from '@nestjs/common';
+import { UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { Public } from 'nest-keycloak-connect';
 // import { BadUserInputError } from '../../auto/resolver/errors.js';
 import { getLogger } from '../../logger/logger.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.js';
 import { KeycloakService } from './keycloak-service.js';
+import { BadUserInputError } from '../../auto/resolver/errors.js';
 
 // @nestjs/graphql fasst die Input-Daten zu einem Typ zusammen
 /** Typdefinition für Token-Daten bei GraphQL */
@@ -57,7 +58,7 @@ export class TokenResolver {
             password,
         });
         if (result === undefined) {
-            throw new NotFoundException(
+            throw new BadUserInputError(
                 'Falscher Benutzername oder falsches Passwort',
             );
         }
@@ -75,7 +76,7 @@ export class TokenResolver {
 
         const result = await this.#keycloakService.refresh(refresh_token);
         if (result === undefined) {
-            throw new NotFoundException('Falscher Token');
+            throw new BadUserInputError('Falscher Token');
         }
 
         this.#logger.debug('refresh: result=%o', result as object);

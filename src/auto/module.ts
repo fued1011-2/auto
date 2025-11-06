@@ -21,6 +21,7 @@ import { PrismaService } from './service/prisma-service.js';
 import { WhereBuilder } from './service/where-builder.js';
 import { AutoWriteService } from './service/auto-write-service.js';
 import { AutoWriteController } from './controller/auto-write-controller.js';
+import { AutoQueryResolver } from './resolver/query.js';
 
 /**
  * Das Modul besteht aus Controller- und Service-Klassen für die Verwaltung von
@@ -39,6 +40,7 @@ import { AutoWriteController } from './controller/auto-write-controller.js';
     providers: [
         AutoService,
         AutoWriteService,
+        AutoQueryResolver,
         PrismaService,
         WhereBuilder,
     ],

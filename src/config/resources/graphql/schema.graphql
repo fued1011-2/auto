@@ -1,107 +1,97 @@
-# Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# siehe app.module.ts
-
 schema {
   query: Query
   mutation: Mutation
 }
 
-"Funktionen, um Bücherdaten zu lesen"
+"Funktionen, um Autodaten zu lesen"
 type Query {
-  buecher(suchparameter: SuchparameterInput): [Buch!]
+  autos(suchparameter: SuchparameterInput): [Auto!]
 
-  buch(id: ID!): Buch
+  auto(id: ID!): Auto
 }
 
-"Funktionen, um Bücher neu anzulegen, zu aktualisieren oder zu löschen"
+"Funktionen, um Autos neu anzulegen, zu aktualisieren oder zu löschen"
 type Mutation {
-  create(input: BuchInput!): CreatePayload
+  create(input: AutoInput!): CreatePayload
 
-  update(input: BuchUpdateInput!): UpdatePayload
+  update(input: AutoUpdateInput!): UpdatePayload
 
   delete(id: ID!): DeletePayload
 
-  token(username: String!, password: String!): TokenPayload # Mutation, wenn z.B. der Login-Zeitpunkt im IDM-System gespeichert wird
+  token(username: String!, password: String!): TokenPayload
   refresh(refreshToken: String!): TokenPayload
 }
 
-"Daten zum Titel eines Buches"
-type Titel {
-  titel: String! # eslint-disable-line @graphql-eslint/no-typename-prefix
-  untertitel: String
+"Daten zum Fahrzeugschein eines Autos"
+type Fahrzeugschein {
+  identifikationsNummer: String!
+  erstzulassung: String!
+  gueltigBis: String!
 }
 
-"Datenschema zu einem Buch, das gelesen wird"
-type Buch {
+"Datenschema zu einem Auto, das gelesen wird"
+type Auto {
   id: ID! # ID ist bei Apollo ein String
   version: Int!
-  isbn: String!
+  fin: String!
   rating: Int
   art: Art
   preis: Float!
-  lieferbar: Boolean
-  datum: String
+  verfuegbar: Boolean
+  baujahr: String
   homepage: String
   schlagwoerter: [String]
-  titel: Titel! # 1:1-Beziehung
+  fahrzeugschein: Fahrzeugschein! # 1:1-Beziehung
   rabatt(short: Boolean): String! # field mit @ResolveField
 }
 
-"Enum-Typ für die Art eines Buches"
+"Enum-Typ für die Art eines Autos"
 enum Art {
-  EPUB
-  HARDCOVER
-  PAPERBACK
+  SUV
+  CABRIO
+  LIMOUSINE
+  E_AUTO
+  KOMBI
+  PICKUP
+  CROSSOVER
 }
 
-"Suchparameter für Bücher"
+"Suchparameter für Autos"
 input SuchparameterInput {
-  titel: String
-  isbn: String
+  identifikationsNummer: String
+  fin: String
   rating: Int
   art: Art
-  lieferbar: Boolean
+  verfuegbar: Boolean
 }
 
-"Daten zum Titel eines neuen Buches"
-input TitelInput {
-  titel: String!
-  untertitel: String
+"Daten zum Fahrzeugschein eines neuen Autos"
+input FahrzeugscheinInput {
+  identifikationsNummer: String!
+  erstzulassung: String!
+  gueltigBis: String!
 }
 
-"Daten zu den Abbildungen eines Buches"
-input AbbildungInput {
-  beschriftung: String!
-  contentType: String!
+"Daten zu den Ausstattungen eines Autos"
+input AusstattungInput {
+  bezeichnung: String!
+  beschreibung: String!
+  preis: Float!
 }
 
-"Daten für ein neues Buch"
-input BuchInput {
-  isbn: String
+"Daten für ein neues Auto"
+input AutoInput {
+  fin: String!
   rating: Int
   art: Art
-  preis: Float
+  preis: Float!
   rabatt: Float
-  lieferbar: Boolean
-  datum: String
+  verfuegbar: Boolean
+  baujahr: String
   homepage: String
   schlagwoerter: [String]
-  titel: TitelInput!
-  abbildungen: [AbbildungInput!]
+  fahrzeugschein: FahrzeugscheinInput!
+  ausstattungen: [AusstattungInput!]
 }
 
 "Generierte ID bei erfolgreichem Neuanlegen"
@@ -109,17 +99,17 @@ type CreatePayload {
   id: ID
 }
 
-"Daten für ein zu änderndes Buch"
-input BuchUpdateInput {
+"Daten für ein zu änderndes Auto"
+input AutoUpdateInput {
   id: ID
   version: Int
-  isbn: String
+  fin: String
   rating: Int
   art: Art
   preis: Float
   rabatt: Float
-  lieferbar: Boolean
-  datum: String
+  verfuegbar: Boolean
+  baujahr: String
   homepage: String
   schlagwoerter: [String]
 }

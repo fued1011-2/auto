@@ -11,7 +11,7 @@ import { AutoMitFahrzeugschein } from '../../../src/auto/service/auto-service.js
 // -----------------------------------------------------------------------------
 const identifikationsNummerArray = ['ka', 's', 'm'];
 const identifikationsNummerNichtVorhanden = ['c', 'g', 'i'];
-const fins = ['WDB123456789XYZ', 'WAU987654321ABC', 'BMW192837465QWE'];
+const fins = ['WDB12345678912XYZ', 'WAU98765432112ABC', 'BMW19283746512FWE'];
 const ratingMin = [3, 4];
 const preisMax = [40000, 50000];
 const schlagwoerter = ['familie', 'sport'];

@@ -26,35 +26,33 @@ const neuesAuto: Omit<AutoDTO, 'preis' | 'rabatt' | 'ausstattungen'> & {
         preis: number;
     }[];
 } = {
-    fin: "HUN12345678923451",
+    fin: 'HUN12345678923451',
     rating: 3,
-    art: "SUV",
+    art: 'SUV',
     preis: 12999.99,
     rabatt: 0.05,
     verfuegbar: true,
-    baujahr: "2023-01-20T00:00:00.000Z",
-    homepage: "https://www.mercedes.de",
-    schlagwoerter: [
-        "ALLRAD",
-        "HYBRID"
-    ],
+    baujahr: '2023-01-20T00:00:00.000Z',
+    homepage: 'https://www.mercedes.de',
+    schlagwoerter: ['ALLRAD', 'HYBRID'],
     fahrzeugschein: {
-        identifikationsNummer: "KA-MC3456",
-        erstzulassung: "2023-03-15T00:00:00.000Z",
-        gueltigBis: "2028-03-15T00:00:00.000Z"
+        identifikationsNummer: 'KA-MC3456',
+        erstzulassung: '2023-03-15T00:00:00.000Z',
+        gueltigBis: '2028-03-15T00:00:00.000Z',
     },
     ausstattungen: [
         {
-            bezeichnung: "Navigation",
-            beschreibung: "Navigationssystem mit Touchscreen",
-            preis: 329.99
+            bezeichnung: 'Navigation',
+            beschreibung: 'Navigationssystem mit Touchscreen',
+            preis: 329.99,
         },
         {
-            bezeichnung: "Massage-Sitze",
-            beschreibung: "Massage-Sitze mit zentralem Touch-Control-Panel, inkl. Sitzheizung",
-            preis: 659.99
-        }
-    ]
+            bezeichnung: 'Massage-Sitze',
+            beschreibung:
+                'Massage-Sitze mit zentralem Touch-Control-Panel, inkl. Sitzheizung',
+            preis: 659.99,
+        },
+    ],
 };
 const neuesAutoInvalid: Record<string, unknown> = {
     fin: 'falsche-FIN',
@@ -68,7 +66,7 @@ const neuesAutoInvalid: Record<string, unknown> = {
     fahrzeugschein: {
         identifikationsNummer: '?!',
         erstzulassung: '12345-123-123',
-        gueltigBis: '12345-123-123'
+        gueltigBis: '12345-123-123',
     },
 };
 const neuesAutoFinExistiert: AutoDTO = {
@@ -82,9 +80,9 @@ const neuesAutoFinExistiert: AutoDTO = {
     homepage: 'https://bmw.de/',
     schlagwoerter: ['SPORT', 'REICHWEITE'],
     fahrzeugschein: {
-        identifikationsNummer: "M-MC3456",
-        erstzulassung: "2023-03-15T00:00:00.000Z",
-        gueltigBis: "2028-03-15T00:00:00.000Z"
+        identifikationsNummer: 'M-MC3456',
+        erstzulassung: '2023-03-15T00:00:00.000Z',
+        gueltigBis: '2028-03-15T00:00:00.000Z',
     },
     ausstattungen: [],
 };

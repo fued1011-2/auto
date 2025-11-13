@@ -4,10 +4,7 @@
  */
 
 import { Injectable, NotFoundException } from '@nestjs/common';
-import {
-    Prisma,
-    PrismaClient,
-} from '../../generated/prisma/client.js';
+import { Prisma, PrismaClient } from '../../generated/prisma/client.js';
 import { type AutoInclude } from '../../generated/prisma/models/Auto.js';
 import { getLogger } from '../../logger/logger.js';
 import { type Pageable } from './pageable.js';
@@ -67,7 +64,9 @@ export class AutoService {
     async findById({
         id,
         mitAusstattungen = false,
-    }: FindByIdParams): Promise<Readonly<AutoMitFahrzeugscheinUndAusstattungen>> {
+    }: FindByIdParams): Promise<
+        Readonly<AutoMitFahrzeugscheinUndAusstattungen>
+    > {
         this.#logger.debug('findById: id=%d', id);
 
         const include = mitAusstattungen
@@ -120,12 +119,14 @@ export class AutoService {
 
         const where = this.#whereBuilder.build(suchparameter);
         const { number, size } = pageable;
-        const autos: AutoMitFahrzeugschein[] = await this.#prisma.auto.findMany({
-            where,
-            skip: number * size,
-            take: size,
-            include: this.#includeFahrzeugschein,
-        });
+        const autos: AutoMitFahrzeugschein[] = await this.#prisma.auto.findMany(
+            {
+                where,
+                skip: number * size,
+                take: size,
+                include: this.#includeFahrzeugschein,
+            },
+        );
         if (autos.length === 0) {
             this.#logger.debug('find: Keine Autos gefunden');
             throw new NotFoundException(
@@ -179,13 +180,17 @@ export class AutoService {
         return count;
     }
 
-    async #findAll(pageable: Pageable): Promise<Readonly<Slice<AutoMitFahrzeugschein>>> {
+    async #findAll(
+        pageable: Pageable,
+    ): Promise<Readonly<Slice<AutoMitFahrzeugschein>>> {
         const { number, size } = pageable;
-        const autos: AutoMitFahrzeugschein[] = await this.#prisma.auto.findMany({
-            skip: number * size,
-            take: size,
-            include: this.#includeFahrzeugschein,
-        });
+        const autos: AutoMitFahrzeugschein[] = await this.#prisma.auto.findMany(
+            {
+                skip: number * size,
+                take: size,
+                include: this.#includeFahrzeugschein,
+            },
+        );
         if (autos.length === 0) {
             this.#logger.debug('#findAll: Keine Autos gefunden');
             throw new NotFoundException(`Ungueltige Seite "${number}"`);
@@ -215,7 +220,7 @@ export class AutoService {
         keys.forEach((key) => {
             if (
                 !suchparameterNamen.includes(key) &&
-                                key !== 'allrad' &&
+                key !== 'allrad' &&
                 key !== 'benzin' &&
                 key !== 'budget' &&
                 key !== 'business' &&
@@ -262,6 +267,6 @@ export class AutoService {
             art === 'KOMBI' ||
             art === 'PICKUP' ||
             art === 'CROSSOVER'
-    );
+        );
     }
 }

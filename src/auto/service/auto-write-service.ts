@@ -58,10 +58,7 @@ export class AutoWriteService {
     readonly #logger = getLogger(AutoWriteService.name);
 
     // eslint-disable-next-line max-params
-    constructor(
-        prisma: PrismaService,
-        readService: AutoService,
-    ) {
+    constructor(prisma: PrismaService, readService: AutoService) {
         this.#prisma = prisma.client;
         this.#readService = readService;
     }
@@ -76,17 +73,17 @@ export class AutoWriteService {
         this.#logger.debug('create: auto=%o', auto);
         await this.#validateCreate(auto);
 
-        this.#logger.debug('Validate done')
+        this.#logger.debug('Validate done');
 
         // Neuer Datensatz mit generierter ID
         let autoDb: AutoCreated | undefined;
         await this.#prisma.$transaction(async (tx) => {
-            this.#logger.debug('Started tx')
+            this.#logger.debug('Started tx');
             autoDb = await tx.auto.create({
                 data: auto,
                 include: { fahrzeugschein: true, ausstattungen: true },
             });
-            this.#logger.debug('Finished tx')
+            this.#logger.debug('Finished tx');
         });
 
         this.#logger.debug('create: autoDb.id=%s', autoDb?.id ?? 'N/A');
@@ -135,7 +132,9 @@ export class AutoWriteService {
             const mimetype = fileType?.mime ?? null;
             this.#logger.debug('addFile: mimetype=%s', mimetype ?? 'undefined');
 
-            const safeData = new Uint8Array(data.buffer.slice(0)) as Uint8Array<ArrayBuffer>;
+            const safeData = new Uint8Array(
+                data.buffer.slice(0),
+            ) as Uint8Array<ArrayBuffer>;
 
             const autoFile: AutoFileCreate = {
                 filename,
@@ -220,9 +219,7 @@ export class AutoWriteService {
         return true;
     }
 
-    async #validateCreate({
-        fin,
-    }: Prisma.AutoCreateInput): Promise<undefined> {
+    async #validateCreate({ fin }: Prisma.AutoCreateInput): Promise<undefined> {
         this.#logger.debug('#validateCreate: fin=%s', fin ?? 'undefined');
         if (fin === undefined) {
             this.#logger.debug('#validateCreate: ok');

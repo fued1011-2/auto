@@ -62,7 +62,9 @@ describe('GET /rest', () => {
             body.content
                 .map((auto) => auto.fahrzeugschein)
                 .forEach((f) =>
-                    expect(f?.identifikationsNummer?.toLowerCase()).toStrictEqual(
+                    expect(
+                        f?.identifikationsNummer?.toLowerCase(),
+                    ).toStrictEqual(
                         expect.stringContaining(identifikationsNummer),
                     ),
                 );

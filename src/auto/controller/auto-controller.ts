@@ -48,98 +48,98 @@ import { createPage, Page } from './page.js';
  * formulieren.
  */
 export class AutoQuery implements Suchparameter {
-  @ApiProperty({ required: false })
-  declare readonly fin?: string;
+    @ApiProperty({ required: false })
+    declare readonly fin?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly rating?: number | string;
+    @ApiProperty({ required: false })
+    declare readonly rating?: number | string;
 
-  @ApiProperty({ required: false })
-  declare readonly art?: Autoart;
+    @ApiProperty({ required: false })
+    declare readonly art?: Autoart;
 
-  @ApiProperty({ required: false })
-  declare readonly preis?: number;
+    @ApiProperty({ required: false })
+    declare readonly preis?: number;
 
-  @ApiProperty({ required: false })
-  declare readonly rabatt?: number;
+    @ApiProperty({ required: false })
+    declare readonly rabatt?: number;
 
-  @ApiProperty({ required: false })
-  declare readonly verfuegbar?: boolean;
+    @ApiProperty({ required: false })
+    declare readonly verfuegbar?: boolean;
 
-  @ApiProperty({ required: false })
-  declare readonly baujahr?: string;
+    @ApiProperty({ required: false })
+    declare readonly baujahr?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly homepage?: string;
+    @ApiProperty({ required: false })
+    declare readonly homepage?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly allrad?: string;
+    @ApiProperty({ required: false })
+    declare readonly allrad?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly benzin?: string;
+    @ApiProperty({ required: false })
+    declare readonly benzin?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly budget?: string;
+    @ApiProperty({ required: false })
+    declare readonly budget?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly business?: string;
+    @ApiProperty({ required: false })
+    declare readonly business?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly cabrio?: string;
+    @ApiProperty({ required: false })
+    declare readonly cabrio?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly e_auto?: string;
+    @ApiProperty({ required: false })
+    declare readonly e_auto?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly einfach?: string;
+    @ApiProperty({ required: false })
+    declare readonly einfach?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly familie?: string;
+    @ApiProperty({ required: false })
+    declare readonly familie?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly hybrid?: string;
+    @ApiProperty({ required: false })
+    declare readonly hybrid?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly komfort?: string;
+    @ApiProperty({ required: false })
+    declare readonly komfort?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly kombi?: string;
+    @ApiProperty({ required: false })
+    declare readonly kombi?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly nutzfahrzeug?: string;
+    @ApiProperty({ required: false })
+    declare readonly nutzfahrzeug?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly pickup?: string;
+    @ApiProperty({ required: false })
+    declare readonly pickup?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly reichweite?: string;
+    @ApiProperty({ required: false })
+    declare readonly reichweite?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly sparsam?: string;
+    @ApiProperty({ required: false })
+    declare readonly sparsam?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly sport?: string;
+    @ApiProperty({ required: false })
+    declare readonly sport?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly suv?: string;
+    @ApiProperty({ required: false })
+    declare readonly suv?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly tech?: string;
+    @ApiProperty({ required: false })
+    declare readonly tech?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly vier_x_vier?: string;
+    @ApiProperty({ required: false })
+    declare readonly vier_x_vier?: string;
 
-  @ApiProperty({ required: false })
-  declare readonly identifikationsNummer?: string;
+    @ApiProperty({ required: false })
+    declare readonly identifikationsNummer?: string;
 
-  @ApiProperty({ required: false })
-  declare size?: string;
+    @ApiProperty({ required: false })
+    declare size?: string;
 
-  @ApiProperty({ required: false })
-  declare page?: string;
+    @ApiProperty({ required: false })
+    declare page?: string;
 
-  @ApiProperty({ required: false })
-  declare only?: 'count';
+    @ApiProperty({ required: false })
+    declare only?: 'count';
 }
 
 export type CountResult = Record<'count', number>;
@@ -151,7 +151,6 @@ export type CountResult = Record<'count', number>;
 @UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Auto REST-API')
 export class AutoController {
-
     readonly #service: AutoService;
 
     readonly #logger = getLogger(AutoController.name);

@@ -43,7 +43,6 @@ import { AutoModule } from './auto/module.js';
 })
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer
-            .apply(RequestLoggerMiddleware);
+        consumer.apply(RequestLoggerMiddleware);
     }
 }

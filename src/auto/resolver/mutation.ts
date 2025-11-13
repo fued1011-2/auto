@@ -110,7 +110,8 @@ export class AutoMutationResolver {
             schlagwoerter: autoDTO.schlagwoerter ?? [],
             fahrzeugschein: {
                 create: {
-                    identifikationsNummer: autoDTO.fahrzeugschein.identifikationsNummer,
+                    identifikationsNummer:
+                        autoDTO.fahrzeugschein.identifikationsNummer,
                     erstzulassung: autoDTO.fahrzeugschein.erstzulassung,
                     gueltigBis: autoDTO.fahrzeugschein.gueltigBis,
                 },

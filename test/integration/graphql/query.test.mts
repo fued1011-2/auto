@@ -101,7 +101,9 @@ describe('GraphQL Queries', () => {
 
         const { auto } = data;
 
-        expect(auto.fahrzeugschein?.identifikationsNummer).toMatch(/^[A-ZÄÖÜ]{1,3}-[A-Z]{1,3}\d{1,4}$/);
+        expect(auto.fahrzeugschein?.identifikationsNummer).toMatch(
+            /^[A-ZÄÖÜ]{1,3}-[A-Z]{1,3}\d{1,4}$/,
+        );
         expect(auto.version).toBeGreaterThan(-1);
         expect(auto.id).toBeUndefined();
     });
@@ -197,7 +199,9 @@ describe('GraphQL Queries', () => {
             autos
                 .map((auto) => auto.fahrzeugschein)
                 .forEach((f) =>
-                    expect(f?.identifikationsNummer?.toLowerCase()).toStrictEqual(
+                    expect(
+                        f?.identifikationsNummer?.toLowerCase(),
+                    ).toStrictEqual(
                         expect.stringContaining(identifikationsNummer),
                     ),
                 );
@@ -238,8 +242,7 @@ describe('GraphQL Queries', () => {
                 /application\/graphql-response\+json/iu,
             );
 
-            const { data, errors } =
-                (await response.json()) as AutosErrorsType;
+            const { data, errors } = (await response.json()) as AutosErrorsType;
 
             expect(data.autos).toBeNull();
             expect(errors).toHaveLength(1);
@@ -255,12 +258,10 @@ describe('GraphQL Queries', () => {
         },
     );
 
-    test.concurrent.each(fins)(
-        'Auto zu FIN %s',
-        async (finExpected) => {
-            // given
-            const query: GraphQLRequest = {
-                query: `
+    test.concurrent.each(fins)('Auto zu FIN %s', async (finExpected) => {
+        // given
+        const query: GraphQLRequest = {
+            query: `
                     {
                         autos(suchparameter: {
                             fin: "${finExpected}"
@@ -272,41 +273,39 @@ describe('GraphQL Queries', () => {
                         }
                     }
                 `,
-            };
+        };
 
-            // when
-            const response = await fetch(graphqlURL, {
-                method: POST,
-                body: JSON.stringify(query),
-                headers,
-            });
+        // when
+        const response = await fetch(graphqlURL, {
+            method: POST,
+            body: JSON.stringify(query),
+            headers,
+        });
 
-            // then
-            const { status } = response;
+        // then
+        const { status } = response;
 
-            expect(status).toBe(HttpStatus.OK);
-            expect(response.headers.get(CONTENT_TYPE)).toMatch(
-                /application\/graphql-response\+json/iu,
-            );
+        expect(status).toBe(HttpStatus.OK);
+        expect(response.headers.get(CONTENT_TYPE)).toMatch(
+            /application\/graphql-response\+json/iu,
+        );
 
-            const { data, errors } =
-                (await response.json()) as AutosSuccessType;
+        const { data, errors } = (await response.json()) as AutosSuccessType;
 
-            expect(errors).toBeUndefined();
-            expect(data).toBeDefined();
+        expect(errors).toBeUndefined();
+        expect(data).toBeDefined();
 
-            const { autos } = data;
+        const { autos } = data;
 
-            expect(autos).not.toHaveLength(0);
-            expect(autos).toHaveLength(1);
+        expect(autos).not.toHaveLength(0);
+        expect(autos).toHaveLength(1);
 
-            const [auto] = autos;
-            const { fahrzeugschein, fin } = auto!;
+        const [auto] = autos;
+        const { fahrzeugschein, fin } = auto!;
 
-            expect(fin).toBe(finExpected);
-            expect(fahrzeugschein?.identifikationsNummer).toBeDefined();
-        },
-    );
+        expect(fin).toBe(finExpected);
+        expect(fahrzeugschein?.identifikationsNummer).toBeDefined();
+    });
 
     test.concurrent.each(ratingMin)(
         'Autos mit Mindest-"rating" %i',
@@ -358,7 +357,9 @@ describe('GraphQL Queries', () => {
                 const { rating, fahrzeugschein } = auto;
 
                 expect(rating).toBeGreaterThanOrEqual(ratingExpected);
-                expect(fahrzeugschein?.identifikationsNummer?.toLowerCase()).toStrictEqual(
+                expect(
+                    fahrzeugschein?.identifikationsNummer?.toLowerCase(),
+                ).toStrictEqual(
                     expect.stringContaining(teilIdentifikationsNummer),
                 );
             });

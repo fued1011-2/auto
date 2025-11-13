@@ -85,7 +85,8 @@ class DecimalMax implements ValidatorConstraintInterface {
 export class AutoDtoOhneRef {
     @IsString()
     @Matches(/^[A-HJ-NPR-Z0-9]{17}$/u, {
-        message: 'FIN muss 17 Zeichen lang sein und darf nur Großbuchstaben (außer I,O,Q) und Ziffern enthalten.',
+        message:
+            'FIN muss 17 Zeichen lang sein und darf nur Großbuchstaben (außer I,O,Q) und Ziffern enthalten.',
     })
     @ApiProperty({ example: 'WDB123456789XYZ01', type: String })
     readonly fin!: string;

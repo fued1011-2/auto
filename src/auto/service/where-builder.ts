@@ -236,9 +236,11 @@ export class WhereBuilder {
         if (hybrid?.toLowerCase() === 'true') schlagwoerter.push('HYBRID');
         if (komfort?.toLowerCase() === 'true') schlagwoerter.push('KOMFORT');
         if (kombi?.toLowerCase() === 'true') schlagwoerter.push('KOMBI');
-        if (nutzfahrzeug?.toLowerCase() === 'true') schlagwoerter.push('NUTZFAHRZEUG');
+        if (nutzfahrzeug?.toLowerCase() === 'true')
+            schlagwoerter.push('NUTZFAHRZEUG');
         if (pickup?.toLowerCase() === 'true') schlagwoerter.push('PICKUP');
-        if (reichweite?.toLowerCase() === 'true') schlagwoerter.push('REICHWEITE');
+        if (reichweite?.toLowerCase() === 'true')
+            schlagwoerter.push('REICHWEITE');
         if (sparsam?.toLowerCase() === 'true') schlagwoerter.push('SPARSAM');
         if (sport?.toLowerCase() === 'true') schlagwoerter.push('SPORT');
         if (suv?.toLowerCase() === 'true') schlagwoerter.push('SUV');

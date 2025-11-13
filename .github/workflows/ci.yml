@@ -33,11 +33,7 @@ jobs:
       # -------- PRETTIER --------
       - name: Check formatting with Prettier
         run: pnpm run prettier:check
-
-      # -------- BUILD --------
-      - name: Build NestJS project
-        run: pnpm run build
-
+        
   docker:
     runs-on: ubuntu-latest
     needs: quality

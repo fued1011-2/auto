@@ -23,9 +23,6 @@
 > Visual Studio Code leicht gelesen werden.
 >
 > Näheres zu Markdown gibt es z.B. bei [Markdown Guide](https://www.markdownguide.org/)
->
-> Nur in den ersten beiden Vorlesungswochen kann es Unterstützung bei
-> Installationsproblemen geben.
 
 ## Inhalt
 

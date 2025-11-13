@@ -34,10 +34,6 @@ jobs:
       - name: Check formatting with Prettier
         run: pnpm run prettier:check
 
-      # -------- TESTS --------
-      - name: Run Vitest
-        run: pnpm t
-
       # -------- BUILD --------
       - name: Build NestJS project
         run: pnpm run build

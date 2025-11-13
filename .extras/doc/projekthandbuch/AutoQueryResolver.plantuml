@@ -1,0 +1,57 @@
+@startuml Controller-Klasse
+
+interface Promise<T>
+interface Readonly<T>
+
+package @nestjs/graphql {
+  annotation Resolver
+  annotation UseInterceptors
+  annotation Query
+  annotation Args
+
+  Resolver .left[hidden].> Promise
+}
+
+package generated.prisma {
+  class Prisma
+  class AutoGetPayload<T>
+  Prisma +-- AutoGetPayload
+}
+
+package auto {
+  package service {
+    class AutoService << control >>
+  }
+
+  package graphql #DDDDDD {
+    class "type AutoDTO = Omit<Auto, 'ausstattungen' | 'aktualisiert' | 'erzeugt'" as AutoDTO
+    hide AutoDTO circle
+
+    interface IdInput {
+        id: number
+    }
+
+    class AutoQueryResolver << control >> << @Resolver() >> << @UseInterceptors() >> {
+      + @Query() async auto(@Args() id: IdInput): Promise<Readonly<AutoGetPayload>>
+      + @Query() async buecher(@Args() identifikationsNummer: string | undefined): Promise<AutoDTO[]>
+    }
+
+    AutoQueryResolver o-down-> "1" AutoService : service
+    AutoQueryResolver ..> AutoDTO
+    AutoQueryResolver ..> IdInput
+    AutoQueryResolver .up.> Resolver
+
+    AutoQueryResolver .up.> Promise
+    AutoQueryResolver .up.> Readonly
+
+    AutoQueryResolver .up.> AutoGetPayload
+
+    IdInput .down[hidden].> AutoService
+    AutoService .down[hidden].> Prisma
+    AutoService .down[hidden].> AutoGetPayload
+  }
+}
+
+hide empty members
+
+@enduml

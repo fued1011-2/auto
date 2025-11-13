@@ -1,0 +1,57 @@
+Auto@startuml Controller-Klasse
+
+interface Promise<T>
+
+package @nestjs/common {
+  annotation Controller
+  annotation Get
+  annotation Req
+  annotation Res
+  annotation Param
+  annotation Query
+  annotation UseInterceptors
+}
+
+package express {
+  class Request
+  class Response
+}
+
+package generated.prisma {
+  class Prisma
+  class AutoGetPayload<T>
+  Prisma +-- AutoGetPayload
+}
+
+package auto {
+  package service {
+    class AutoService << control >>
+  }
+
+  package rest #DDDDDD {
+    class AutoController << control >> << @Controller() >> << @UseInterceptors() >> {
+      + @Get() async getById(@Param() id: number, @Req() req: Request, @Headers() version: string, @Res() res: Response): Promise<Response<Prisma.AutoGetPayload<>>>
+      + @Get() async get(@Query() query: AutoQuery, @Req() req: Request,  @Res() res: Response): Promise<Response<Page<Prisma.AutoGetPayload<>>>>
+    }
+
+    AutoController o-down-> "1" AutoService : service
+
+    AutoController .up.> Controller
+
+    AutoController .down.> Request
+    AutoController .down.> Response
+
+    AutoController .up.> Promise
+    AutoController .up.> AutoGetPayload
+
+    Promise .up[hidden].> Controller
+    AutoService .down[hidden].> Prisma
+    AutoService .down[hidden].> AutoGetPayload
+    AutoService .down[hidden].> Request
+    Request .left[hidden].> Prisma
+  }
+}
+
+hide empty members
+
+@enduml

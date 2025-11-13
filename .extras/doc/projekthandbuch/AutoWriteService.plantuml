@@ -1,0 +1,57 @@
+@startuml Anwendungskern
+
+interface Promise<T>
+
+package @nestjs/common {
+  annotation Injectable
+  exception NotFoundException
+}
+
+package generated.prisma {
+  class Prisma
+  class AutoCreateInput
+  class AutoGetPayload<T>
+  class AutoUpdateInput
+  Prisma +-- AutoCreateInput
+  Prisma +-- AutoGetPayload
+  Prisma +-- AutoUpdateInput
+}
+
+package auto {
+  package service #DDDDDD {
+    class PrismaService
+    class AutoService
+    exception FinExists
+    exception VersionInvalid
+    exception VersionOutdated
+
+    class AutoWriteService << control >> <<@Injectable()>> {
+      + async create(auto: Prisma.AutoCreateInput): Promise<number>
+      + async update(id: number, auto: Prisma.AutoUpdateInput, version: string): Promise<number>
+      + async delete(id: number): Promise<void>
+    }
+
+    AutoWriteService o--> "1" PrismaService
+    AutoWriteService o--> "1" AutoService: readService
+
+    AutoWriteService .up.> Injectable
+    AutoWriteService .up.> NotFoundException
+
+    AutoWriteService .up.> Promise
+
+    AutoWriteService .down.> AutoCreateInput
+    AutoWriteService .down.> AutoGetPayload
+    AutoWriteService .down.> AutoUpdateInput
+
+    AutoWriteService .down.> FinExists
+    AutoWriteService .down.> VersionInvalid
+    AutoWriteService .down.> VersionOutdated
+
+    AutoService .down[hidden].> Prisma
+    FinExists   .left[hidden].> VersionInvalid
+  }
+}
+
+hide empty members
+
+@enduml

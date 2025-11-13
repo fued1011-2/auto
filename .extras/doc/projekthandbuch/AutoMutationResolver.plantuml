@@ -1,0 +1,55 @@
+@startuml Controller-Klasse
+
+interface Promise<T>
+
+package @nestjs/graphql {
+  annotation Resolver
+  annotation UseGuards
+  annotation UseInterceptors
+  annotation Mutation
+  annotation Args
+}
+
+package nest-keycloak-connect {
+  class AuthGuard
+  annotation Roles
+}
+
+package auto #DDDDDD {
+  package service #FFFFFF {
+    class AutoWriteService << control >>
+  }
+
+  class AutoDtoOhneRef << entity >>
+  class AutoDTO << entity >>
+  AutoDtoOhneRef <|-- AutoDTO
+
+  interface IdInput {
+      id: number
+  }
+
+  class AutoMutationResolver << control >> << @Resolver() >> << @UseGuards() >> << @UseInterceptors() >> {
+    + @Mutation() @Roles() async create(@Args() autoDTO: AutoDTO): Promise<number>
+    + @Mutation() @Roles() async update(@Args() autoDTO: AutoDtoOhneRef): Promise<number>
+    + @Mutation() @Roles() async delete(@Args() id: IdInput): Promise<boolean>
+  }
+
+  AutoMutationResolver o-down-> "1" AutoWriteService : service
+
+  AutoMutationResolver ..> AutoDTO
+  AutoMutationResolver ..> AutoDtoOhneRef
+  AutoMutationResolver ..> IdInput
+
+  AutoMutationResolver .up.> Promise
+
+  AutoMutationResolver .up.> Resolver
+
+  AutoMutationResolver .up.> AuthGuard
+  AutoMutationResolver .up.> Roles
+
+  Roles .right[hidden].> Resolver
+}
+
+hide empty members
+
+@enduml

@@ -26,6 +26,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate Prisma client
+        working-directory: prisma
+        run: pnpx prisma generate
+
       # -------- LINT --------
       - name: Run ESLint
         run: pnpm run eslint
@@ -33,7 +37,7 @@ jobs:
       # -------- PRETTIER --------
       - name: Check formatting with Prettier
         run: pnpm run prettier:check
-        
+
   docker:
     runs-on: ubuntu-latest
     needs: quality

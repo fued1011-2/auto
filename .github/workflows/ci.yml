@@ -45,6 +45,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_SUMMARY: true
           VALIDATE_PRETTIER: true
           VALIDATE_ESLINT: true
           VALIDATE_TYPESCRIPT_ES: false

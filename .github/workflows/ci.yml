@@ -37,3 +37,13 @@ jobs:
       # -------- PRETTIER --------
       - name: Check formatting with Prettier
         run: pnpm run prettier:check
+
+            # ---- SUPER-LINTER ----
+      - name: Run Super-Linter
+        uses: super-linter/super-linter@v6
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_PRETTIER: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_TYPESCRIPT_ES: true

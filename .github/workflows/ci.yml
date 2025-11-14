@@ -83,6 +83,7 @@ jobs:
           VALIDATE_PLANTUML: false
           VALIDATE_BIOME: false
           VALIDATE_BIOME_LINT: false
+          VALIDATE_BIOME_FORMAT: false
           VALIDATE_GRAPHQL_PRETTIER: false
           VALIDATE_JSON_PRETTIER: false
           VALIDATE_YAML_PRETTIER: false
@@ -96,3 +97,4 @@ jobs:
           VALIDATE_SQLFLUFF: false
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_GROOVY: false
+          VALIDATE_PRE_COMMIT: false

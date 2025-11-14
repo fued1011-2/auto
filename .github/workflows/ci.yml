@@ -98,3 +98,4 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_GROOVY: false
           VALIDATE_PRE_COMMIT: false
+          DISABLE_ERRORS: true

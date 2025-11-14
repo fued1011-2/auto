@@ -47,3 +47,36 @@ jobs:
           VALIDATE_PRETTIER: true
           VALIDATE_ESLINT: true
           VALIDATE_TYPESCRIPT_ES: false
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_EDITORCONFIG: false
+          VALIDATE_YAML: false
+          VALIDATE_JSON: false
+          VALIDATE_MARKDOWN: false
+          VALIDATE_MD: false
+          VALIDATE_XML: false
+          VALIDATE_CSS: false
+          VALIDATE_SHELL_SH: false
+          VALIDATE_BASH: false
+          VALIDATE_PYTHON: false
+          VALIDATE_RUBY: false
+          VALIDATE_GO: false
+          VALIDATE_JAVA: false
+          VALIDATE_RUST: false
+          VALIDATE_DOCKERFILE: false
+          VALIDATE_SQL: false
+          VALIDATE_ENV: false
+          VALIDATE_CSV: false
+          VALIDATE_TERRAFORM: false
+          VALIDATE_KUBERNETES: false
+          VALIDATE_ANSIBLE: false
+          VALIDATE_GITLEAKS: false
+          VALIDATE_ARM: false
+          VALIDATE_PHP: false
+          VALIDATE_PERL: false
+          VALIDATE_CLOJURE: false
+          VALIDATE_TEXTLINT: false
+          VALIDATE_PROTOBUF: false
+          VALIDATE_JSCPD: false
+          VALIDATE_POWERSHELL: false
+          VALIDATE_R: false
+          VALIDATE_PLANTUML: false
